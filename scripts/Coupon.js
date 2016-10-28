@@ -1,6 +1,3 @@
-
-
-
 /**
  * generates/decodes coupons
  * @namespace Coupon
@@ -8,7 +5,7 @@
 var Coupon = (function (ns) {
   
   // changing this will invalidate all previous tokens 
-  var ALGO = "JABBA";
+  var ALGO = "@theReal#Mr-Tangerine-Man";
   var SIG_SIZE = 3;
 
   // a coupon looks like this
@@ -66,7 +63,7 @@ var Coupon = (function (ns) {
   ns.decode = function (salt, coupon) {
 
     var matches = coupon.split("-");
-    var c = getCode_ (salt, matches[0], matches[2], 0 , true);
+    var c = getCode_ (salt, matches[0], matches[1] + matches[2], 0 , true);
     var valid = c.coupon === coupon;
     
     return {
@@ -199,11 +196,16 @@ var Coupon = (function (ns) {
         target += extendDays.toString(32);
       }
       
+      // simulate a sig for decoding
+      var t = decoding ? target : nChars_ (SIG_SIZE , "x" ) + target;
+      
+      
       // the shuffle sequence for this kind of token
-      var seq = getSeq_ ( prefix+salt , target );
+      var seq = getSeq_ ( prefix+salt , t );
       
       // scramble using the shuffle sequence
-      var e32 = decoding ? scramble_ (seq , target, true) : target;
+      var t = decoding ? scramble_ (seq , target, true) : t;
+      var e32 = t.slice (SIG_SIZE);
       
       // if this is an extended token slice of the expiry and the extended parts
       var expiry32 = e32.slice (0,tsLen);
@@ -232,8 +234,11 @@ var Coupon = (function (ns) {
       // calculate extra days
       var extraDays = ex32 ? parseInt(ex32,32) : 0;
     
+      // scramble it all up
+      var scramble = scramble_ (seq, sig + expiry32 + ex32,false);
+      
       return {
-        coupon:prefix+"-" + sig +"-"+scramble_ (seq, expiry32 + ex32,false),
+        coupon:prefix+"-" + scramble.slice(0,SIG_SIZE) +"-"+scramble.slice (SIG_SIZE),
         expiry:expiry,
         ex32:expiry32,
         extraDays:extraDays,
@@ -265,8 +270,11 @@ var Coupon = (function (ns) {
     when['set'+period] (when['get'+period]() + howMany);
     return when;
   }
+  
+  function nChars_ (howMany , theChar) {
+    return new Array(howMany+1).slice().join(theChar || " ");
+  }
                      
   
   return ns;
 })(Coupon || {});
-
