@@ -212,11 +212,11 @@ var Coupon = (function (ns) {
       var ex32 = e32.slice (tsLen);
       
       // digest the coupon parameters and salt
-      var z = digest_(prefix,e32,salt.key);
+      var z = digest_(prefix,e32,salt);
       
       // sign it with itself
       var c = Utilities.base64EncodeWebSafe(Utilities.computeHmacSha256Signature(
-        prefix+e32, salt.key + z
+        prefix+e32, salt + z
       ));
       
       // digest the signed result
