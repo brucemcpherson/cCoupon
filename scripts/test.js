@@ -5,18 +5,31 @@ function soak () {
   var privateKey = "bigmacwithcheese";
   var couponCode = Coupon.generate(privateKey, new Date(2016,11,25).getTime(),'xmas');
   Logger.log(couponCode);
+  if (!Coupon.decode(privateKey, couponCode).valid) {
+    throw couponCode;
+  }
   var couponCode = Coupon.generateMonths(privateKey, 3,'xmas');
   Logger.log(couponCode);
+  if (!Coupon.decode(privateKey, couponCode).valid) {
+    throw couponCode;
+  }
   var couponCode = Coupon.generateDays(privateKey, 28,'xmas');
   Logger.log(couponCode);
+  if (!Coupon.decode(privateKey, couponCode).valid) {
+    throw couponCode;
+  }
   
   var couponCode = Coupon.generateMonths(privateKey, 12,'xmas',28);
   Logger.log(couponCode);
-  
+  if (!Coupon.decode(privateKey, couponCode).valid) {
+    throw couponCode;
+  }
 
-  
   var couponCode = Coupon.generateMonths(privateKey + "bruce@mcpher.com", 1,'xmas');
   Logger.log(couponCode);
+  if (!Coupon.decode(privateKey + "bruce@mcpher.com", couponCode).valid) {
+    throw couponCode;
+  }
   
 
   
