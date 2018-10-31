@@ -1,5 +1,5 @@
 # Google Apps Script Project: cCoupon
-This repo (cCoupon) was automatically updated on 28 October 2016 16:34:36 BST by GasGit
+This repo (cCoupon) was automatically updated on 31 October 2018 11:43:11 GMT by GasGit
 
 For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation") or [contact me on G+](https://plus.google.com/+BruceMcpherson "Bruce McPherson - GDE")
 ## Details for Apps Script project cCoupon
@@ -11,11 +11,14 @@ The shared link for [cCoupon is here](https://script.google.com/d/1X-tyDMF_iILp3
 --- | --- 
 Coupon| server_js
 test| server_js
+appsscript| json
 ### Directly referenced libraries
 no libraries discovered
 ### All dependencies and sub dependencies
 no libraries discovered
 ### Enabled Google Services
 no libraries discovered
-###Need more detail ?
+### Scopes required
+no scopes discovered
+### Need more detail ?
 You can see [full project info as json here](info.json)
